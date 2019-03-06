@@ -69,6 +69,8 @@ node('<label>'){
         env.OS_REGION_NAME = "<region name>"
         env.OS_INTERFACE = "public"
         env.OS_IDENTITY_API_VERSION = 3
+        env.JENKINS_URL="<jenkins url>"
+        env.NODE_SLAVE_HOME='<home dir>'
         
         stage("create-openstack-dir"){
             sh 'mkdir -p openstack'
@@ -100,8 +102,8 @@ node('<label>'){
             println("going to sleep for 300 seconds , waiting for VM to come up with sshd service up and running ....")
             sleep 300
             stage('Copy slave.jar on OS VM'){
-                env.JENKINS_URL="<jenkins url>"
-                env.NODE_SLAVE_HOME='<home dir>'
+                //env.JENKINS_URL="<jenkins url>"
+                //env.NODE_SLAVE_HOME='<home dir>'
                 dir('openstack'){
                     env.NODE_IP=sh(returnStdout: true, script: ". ./venv3/bin/activate; openstack server show ${MACHINE_NAME} | grep addresses|cut -d'=' -f2|cut -d'|' -f1").trim()
                     println("NODE IP of created OpenStack VM : ${NODE_IP}")
@@ -113,8 +115,8 @@ node('<label>'){
             }
             stage("Add ${NODE_IP} slave to jenkins slave"){
                 env.JAVA_HOME = tool name: '<tool name on jenkins>', type: 'jdk'
-                env.JENKINS_URL="<jenkins url>"
-                env.NODE_SLAVE_HOME='<home dir>'
+                //env.JENKINS_URL="<jenkins url>"
+                //env.NODE_SLAVE_HOME='<home dir>'
                 env.EXECUTORS=1
                 env.LABELS="<label name>"
                 env.USERID='<username>'
