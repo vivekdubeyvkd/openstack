@@ -50,8 +50,8 @@ def checkAndDestroyOpenstackVM(){
                 if(jenkins.slaves[i].labelString == '<label name>'){
                     println jenkins.slaves[i].computer.name 
                     println jenkins.slaves[i].labelString
-                    removeOpenstackSlave(jenkins.slaves[i])
                     deleteOpenstackVM(jenkins.slaves[i].computer.name.trim())
+                    removeOpenstackSlave(jenkins.slaves[i])
                 }
             } 
         }  
